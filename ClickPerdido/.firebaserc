@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "clicksperdido": {
+      "hosting": {
+        "angular-losty": [
+          "clicksperdido"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "clicksperdido"
+  }
+}

@@ -1,0 +1,46 @@
+<mat-form-field appearance="fill">
+  <mat-label>Tipo(Perdido/Encontrado)</mat-label>
+  <mat-select name="tipo" [(ngModel)]="tipo">
+    <mat-option value="Perdido">
+      Perdido
+    </mat-option>
+    <mat-option value="Encontrado">
+      Encontrado
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<br/>
+
+<mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput name="name" [(ngModel)]="objetoNew">
+  </mat-form-field>
+  <br/>
+  <mat-form-field appearance="fill">
+    <mat-label>Categorias</mat-label>
+    <mat-select name="id" [(ngModel)]="id">
+      <mat-option *ngFor="let categoria of listasList" [value]="categoria.name">
+        {{categoria.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br/>
+  <mat-form-field appearance="fill">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput name="descripcion" [(ngModel)]="descripcion"></textarea>
+  </mat-form-field>
+<br>
+  <input type="text" [(ngModel)]="address" /> 
+  <button (click)="searchAddress()">Localizar</button>
+  <div *ngIf="apiLoaded | async">
+      <google-map
+        [center]="fundacionDonBoscoLatLng">
+        <map-marker
+                (mapDragend)="updateLocationMarker($event)"
+                [position]="fundacionDonBoscoLatLng"
+                [options]="markerOptions"></map-marker>
+      </google-map>
+    </div>
+
+  <button mat-raised-button color="primary"(click)="crearObjeto()">Crear nuevo objeto</button>
+ 
