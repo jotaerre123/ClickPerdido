@@ -1,4 +1,7 @@
-<mat-form-field appearance="fill">
+
+<div class="form">
+  <div class="form2">
+<mat-form-field appearance="outline" class="campo">
   <mat-label>Tipo(Perdido/Encontrado)</mat-label>
   <mat-select name="tipo" [(ngModel)]="tipo">
     <mat-option value="Perdido">
@@ -11,12 +14,12 @@
 </mat-form-field>
 <br/>
 
-<mat-form-field appearance="fill">
+<mat-form-field appearance="outline" class="campo">
     <mat-label>Nombre</mat-label>
     <input matInput name="name" [(ngModel)]="objetoNew">
   </mat-form-field>
   <br/>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline" class="campo">
     <mat-label>Categorias</mat-label>
     <mat-select name="id" [(ngModel)]="id">
       <mat-option *ngFor="let categoria of listasList" [value]="categoria.name">
@@ -25,11 +28,15 @@
     </mat-select>
   </mat-form-field>
   <br/>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline" class="campo">
     <mat-label>Descripción</mat-label>
     <textarea matInput name="descripcion" [(ngModel)]="descripcion"></textarea>
   </mat-form-field>
+  
+  
 <br>
+  </div>
+  <div class="form3" >
   <input type="text" [(ngModel)]="address" /> 
   <button (click)="searchAddress()">Localizar</button>
   <div *ngIf="apiLoaded | async">
@@ -40,7 +47,14 @@
                 [position]="fundacionDonBoscoLatLng"
                 [options]="markerOptions"></map-marker>
       </google-map>
+      <button mat-raised-button  color="primary"(click)="crearObjeto()">Crear nuevo objeto</button>
     </div>
+   
+  </div>
+  
+</div>
 
-  <button mat-raised-button color="primary"(click)="crearObjeto()">Crear nuevo objeto</button>
+
+ 
+
  
