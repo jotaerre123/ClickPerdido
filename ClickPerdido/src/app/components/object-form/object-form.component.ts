@@ -27,6 +27,7 @@ export class ObjectFormComponent implements OnInit {
     draggable: true
   };
   tipo!:string;
+  location!: google.maps.LatLngLiteral;
 
 
   constructor(private firestore: AngularFirestore, private categoria: CategoriaServiceService, private httpClient: HttpClient) {
@@ -42,9 +43,21 @@ export class ObjectFormComponent implements OnInit {
     this.getCategorias();
   }
 
-  searchAddress() {
-    let addressSplited = this.address.split(',');
-    this.fundacionDonBoscoLatLng = {lat: Number(addressSplited[0]), lng: Number(addressSplited[1])};
+  searchAddress(){
+    let geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address' : this.address}, function(results,status){
+      if(status == google.maps.GeocoderStatus.OK){
+        if(results && results?.length > 0) {
+          let localizacion = results![0];
+          localStorage.setItem('lng',localizacion.geometry.location.lng().toString())
+          localStorage.setItem('lat',localizacion.geometry.location.lat().toString())
+        }else{
+          alert('Direccion no encontrada')
+        }
+      }
+    });
+    console.log(geocoder)
+    console.log(this.address)
   }
 
   updateLocationMarker(event: google.maps.MapMouseEvent) {
@@ -66,9 +79,17 @@ export class ObjectFormComponent implements OnInit {
 
   crearObjeto(){
     let id = localStorage.getItem('uid')
-    let address = localStorage.getItem('location');
-    address?.split(' ')
-  this.firestore.collection(`users/${id}/${this.tipo}`).add({name: this.objetoNew, categoria: this.id, descripcion: this.descripcion, location: address});}
+    let lat = Number(localStorage.getItem('lat'));
+    let lng = Number(localStorage.getItem('lng'))
+    this.location = {lat: lat, lng: lng}
+    console.log(this.location)
+  this.firestore.collection(`users/${id}/${this.tipo}`).add({
+    name: this.objetoNew,
+    categoria: this.id,
+    descripcion: this.descripcion,
+    location: this.location,
+});
   
 
-}
+}}
+
