@@ -14,9 +14,11 @@
                 </a>
             </mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item role="listitem">
+            <a [routerLink]="['/login']">
+            <mat-list-item role="listitem" (click)="logout()">
                 <mat-icon class="sidenav-icon">logout</mat-icon> Salir
             </mat-list-item>
+        </a>
         </mat-list>
     </mat-sidenav>
 
@@ -25,9 +27,12 @@
             <button (click)="sidenav.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
                 <mat-icon>menu</mat-icon>
             </button>
+            <span>ClickPerdidos</span>
+            <div class="mover">
             <p>{{getEmail()}}</p>
-            <img [src]="getPhotoUrl()" style="width: 400px; border-radius: 100%;">
-            <span style="margin-left: 85%;">ClickPerdidos</span>
+            <img [src]="getPhotoUrl()" style="width: 60px; border-radius: 100%;">
+        </div>
+            
            
             
             <span class="example-spacer"></span>
